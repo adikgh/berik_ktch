@@ -1,0 +1,655 @@
+/* Berik POS: Кухня (Раздачадан көшірілген) жаңа стиль (касса мен админмен бірдей түстер) */
+:root{
+	--bp-bg: #f3f4f6;
+	--bp-card: #fff;
+	--bp-line: #e8e8ea;
+	--bp-pill: #f1f2f4;
+	--bp-text: #1f2328;
+	--bp-muted: #8a8f98;
+	--bp-green: #10a96a;
+	--bp-green-h: #0d9660;
+	--bp-green-bg: #e7f6ef;
+	--bp-red: #e5484d;
+	--bp-red-bg: #fdeced;
+	--bp-shadow: 0 1px 3px rgba(16,24,40,.06);
+	--bp-r: 14px;
+
+	/* ескі түстерді брендке ауыстыру: батырмалар, попаптар бірдей болады */
+	--cl: #10a96a;
+	--cl05: rgba(16,169,106,.05);
+	--cl1: rgba(16,169,106,.1);
+	--cl2: rgba(16,169,106,.2);
+	--cm: #10a96a;
+	--cm1: rgba(16,169,106,.1);
+	--cm2: rgba(16,169,106,.2);
+	--bag: #f3f4f6;
+}
+
+body{ background: var(--bp-bg); color: var(--bp-text); }
+.app{ padding-bottom: 96px; }
+
+/* ---------- Беттің басы ---------- */
+.bp_head{
+	background: var(--bp-card);
+	border-bottom: 1px solid var(--bp-line);
+	padding: 18px 0 16px;
+}
+.bp_head_t{ display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.bp_head_s{ font-size: 13px; font-weight: 600; color: var(--bp-muted); text-transform: uppercase; letter-spacing: .4px; }
+.bp_head_h{ margin: 2px 0 0; font-size: 26px; line-height: 1.15; font-weight: 800; }
+.bp_back{ display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--bp-muted); text-decoration: none; }
+.bp_cnt{
+	display: flex; flex-direction: column; align-items: flex-end;
+	padding: 8px 14px; border-radius: 12px; background: var(--bp-green-bg);
+	min-width: 84px;
+}
+.bp_cnt span{ font-size: 12px; font-weight: 600; color: var(--bp-green); }
+.bp_cnt b{ font-size: 22px; line-height: 1.1; font-weight: 800; color: var(--bp-green); }
+
+/* Табтар */
+.bp_tabs{
+	display: flex; gap: 4px; margin-top: 16px; padding: 4px;
+	background: var(--bp-pill); border-radius: 40px;
+}
+.bp_tab{
+	flex: 1; height: 40px; display: flex; align-items: center; justify-content: center;
+	border-radius: 40px; font-size: 15px; font-weight: 700; color: var(--bp-muted);
+	text-decoration: none; transition: background .2s, color .2s;
+}
+.bp_tab:hover{ color: var(--bp-text); }
+.bp_tab_act, .bp_tab_act:hover{ background: var(--bp-green); color: #fff; box-shadow: 0 2px 6px rgba(16,169,106,.3); }
+
+/* Курьер сүзгісі */
+.bp_sel{ position: relative; margin-top: 12px; }
+.bp_sel i{ position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--bp-muted); pointer-events: none; }
+.bp_sel select{
+	width: 100%; height: 44px; padding: 0 14px 0 40px; border: 1px solid var(--bp-line);
+	border-radius: 12px; background: var(--bp-card); font: inherit; font-size: 15px; font-weight: 600; color: var(--bp-text);
+}
+
+/* ---------- Тапсырыс карточкалары ---------- */
+.uc_u{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 16px 0 24px; }
+@media (max-width: 900px){ .uc_u{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px){ .uc_u{ grid-template-columns: 1fr; gap: 12px; padding: 12px 0 24px; } }
+
+.uc_ui{
+	background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: var(--bp-r);
+	box-shadow: var(--bp-shadow); padding: 14px;
+}
+.uc_uil2_top{ display: flex; align-items: center; gap: 12px; }
+.uc_uil2_nmb{
+	flex: 0 0 auto; min-width: 58px; height: 58px; padding: 0 8px; border-radius: 12px;
+	background: var(--bp-green); color: #fff; font-size: 19px; font-weight: 800;
+	display: flex; align-items: center; justify-content: center;
+}
+.uc_uil2_date{ flex: 1; min-width: 0; width: auto !important; }
+.uc_uil2_date1{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 14px; }
+.bp_st{ display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; background: var(--bp-pill); color: var(--bp-text); }
+.bp_st1{ background: #e8f1fb; color: #1f6fb2; }
+.bp_st8{ background: #fff3e0; color: #b26a00; }
+.bp_st2{ background: var(--bp-green-bg); color: var(--bp-green); }
+.bp_st11, .bp_st3{ background: #efe9fb; color: #6b3fb8; }
+.bp_st9, .bp_st4{ background: var(--bp-green-bg); color: var(--bp-green-h); }
+.bp_st5, .bp_st6, .bp_st10{ background: var(--bp-red-bg); color: var(--bp-red); }
+.bp_br{ font-size: 13px; font-weight: 600; color: var(--bp-muted); }
+.bp_tm{ margin-top: 6px; font-size: 15px; font-weight: 700; }
+.bp_tm i{ color: var(--bp-muted); font-weight: 400; }
+.bp_tm span{ margin-left: 4px; font-size: 12px; font-weight: 600; color: var(--bp-muted); }
+.bp_pre{ display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; padding: 2px 8px; border-radius: 20px; background: var(--bp-red-bg); color: var(--bp-red); font-size: 12px; }
+
+.uc_uil2_chek{ width: auto; height: auto; flex: 0 0 auto; }
+.uc_uil2_chek .btn{
+	width: auto; height: 44px; min-height: 44px; padding: 0 14px; gap: 6px; border: 0;
+	border-radius: 12px; background: var(--bp-green); color: #fff; font-size: 15px; font-weight: 700;
+}
+.uc_uil2_chek .btn:hover{ background: var(--bp-green-h); }
+
+.uc_uil2_raz{ margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--bp-line); }
+.uc_uil2_trt{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.uc_uil2_trt1, .uc_uil2_trt2, .uc_uil2_trt3{ font-size: 14px; }
+.uc_uil2_trt1{ width: 58%; }
+.uc_uil2_trt2{ width: 14%; text-align: center; color: var(--bp-muted); }
+.uc_uil2_trt3{ width: 28%; text-align: right; font-weight: 600; }
+.uc_uil2_raz > .uc_uil2_trt:first-child .uc_uil2_trt1,
+.uc_uil2_raz > .uc_uil2_trt:first-child .uc_uil2_trt2,
+.uc_uil2_raz > .uc_uil2_trt:first-child .uc_uil2_trt3{ font-size: 12px; font-weight: 600; color: var(--bp-muted); text-transform: uppercase; letter-spacing: .3px; }
+.uc_uil2_trb{ display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--bp-line); }
+.uc_uil2_trb .uc_uil2_trt1, .uc_uil2_trb .uc_uil2_trt3{ font-size: 16px; font-weight: 800; padding: 0; border: 0; }
+.uc_uil2_trc{ margin-top: 8px; padding: 10px 12px 4px; border-radius: 10px; background: var(--bp-pill); }
+
+.uc_uil2_mi{ display: flex; gap: 6px; margin-bottom: 6px; font-size: 15px; line-height: 1.35; }
+.uc_uil2_mi1{ flex: 0 0 auto; color: var(--bp-muted); font-size: 14px; }
+.uc_uil2_mi2{ font-weight: 700; font-size: 15px; word-break: break-word; }
+.uc_uil2_mib{ display: flex; gap: 8px; margin-top: 10px; }
+.uc_uil2_mib .btn{ flex: 1; width: auto; height: 42px; min-height: 42px; gap: 6px; border-radius: 12px; font-weight: 700; }
+.uc_uil2_mib .btn_cl{ border: 1px solid var(--bp-line); background: var(--bp-card); color: var(--bp-text); }
+.uc_uil2_mib .btn_cl:hover{ background: var(--bp-pill); }
+
+.uc_uil2_sel select{
+	width: 100%; height: 44px; margin-top: 8px; padding: 0 12px; border: 1px solid var(--bp-green);
+	border-radius: 12px; background: var(--bp-green-bg); color: var(--bp-green-h); font: inherit; font-size: 15px; font-weight: 700;
+}
+
+/* Бос күй */
+.ds_nr{
+	grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+	gap: 10px; padding: 56px 20px; border: 1px dashed var(--bp-line); border-radius: var(--bp-r);
+	background: var(--bp-card); color: var(--bp-muted); text-align: center;
+}
+.ds_nr i{ font-size: 40px; color: #c9ccd2; }
+.ds_nr p{ margin: 0; font-size: 16px; font-weight: 700; }
+
+/* ---------- Төменгі мәзір ---------- */
+.pmenu_c{ background: var(--bp-card); border-color: var(--bp-line); box-shadow: 0 -4px 20px rgba(16,24,40,.06); }
+.pmenu_i{
+	width: auto; min-width: 56px; height: 52px; padding: 0 6px; border-radius: 14px;
+	color: var(--bp-muted); text-decoration: none; transition: background .2s, color .2s;
+}
+.pmenu_i span{ margin-top: 4px; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+.pmenu_i_act{ color: var(--bp-green); background: var(--bp-green-bg); }
+@media (max-width: 1024px){
+	.pmenu_c{ height: 72px; padding: 0 8px; justify-content: space-around; padding-bottom: env(safe-area-inset-bottom); }
+}
+@media (min-width: 1025px){
+	.pmenu_c{ border-radius: 20px 0 0 20px; height: auto; gap: 10px; padding: 14px 8px; }
+	.app{ padding-right: 104px; padding-bottom: 24px; }
+}
+
+/* ---------- Аккаунт ---------- */
+.bp_acc{ padding: 20px 0 10px; }
+.bp_acc .bl_c{ max-width: 560px; }
+.bp_prof{
+	display: flex; align-items: center; gap: 14px; padding: 18px;
+	background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: 18px; box-shadow: var(--bp-shadow);
+}
+.bp_prof_av, .bp_user_av{
+	flex: 0 0 auto; width: 64px; height: 64px; border-radius: 50%;
+	display: flex; align-items: center; justify-content: center;
+	background: var(--bp-green-bg) center/cover no-repeat; color: var(--bp-green); font-size: 26px; font-weight: 800;
+}
+.bp_prof_t{ min-width: 0; }
+.bp_prof_n{ font-size: 20px; font-weight: 800; }
+.bp_prof_p{ margin-top: 2px; font-size: 15px; color: var(--bp-muted); }
+.bp_prof_r{ display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.bp_prof_r span{ padding: 3px 10px; border-radius: 20px; background: var(--bp-pill); font-size: 12px; font-weight: 700; }
+.bp_prof_r span:first-child{ background: var(--bp-green-bg); color: var(--bp-green); }
+
+.bp_box{
+	margin-top: 14px; padding: 16px; background: var(--bp-card);
+	border: 1px solid var(--bp-line); border-radius: 18px; box-shadow: var(--bp-shadow);
+}
+.bp_box_h{ display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
+.bp_box_h i{ color: var(--bp-muted); }
+.bp_lang{ display: flex; gap: 4px; margin-top: 12px; padding: 4px; background: var(--bp-pill); border-radius: 40px; }
+.bp_lang_i{
+	flex: 1; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 40px;
+	font-size: 15px; font-weight: 800; color: var(--bp-muted); text-decoration: none;
+}
+.bp_lang_act{ background: var(--bp-green); color: #fff; }
+
+.bp_list{ padding: 6px 0; }
+.bp_li{
+	display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px;
+	color: var(--bp-text); text-decoration: none; cursor: pointer;
+}
+.bp_li + .bp_li{ border-top: 1px solid var(--bp-line); }
+.bp_li:hover{ background: #fafafa; }
+.bp_li_ic{ width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; background: var(--bp-pill); color: var(--bp-text); }
+.bp_li_t{ flex: 1; font-size: 15px; font-weight: 700; }
+.bp_li_ar{ color: #c3c6cc; font-size: 13px; }
+
+.bp_exit{
+	display: flex; align-items: center; justify-content: center; gap: 8px; height: 52px; margin-top: 14px;
+	border-radius: 16px; background: var(--bp-red-bg); color: var(--bp-red); font-weight: 800; text-decoration: none;
+}
+.bp_brandline{ margin: 28px 0 10px; text-align: center; font-style: italic; font-weight: 900; color: #b8bcc3; letter-spacing: .3px; }
+.bp_brandline b{ color: var(--bp-green); }
+
+/* ---------- Курьерлер ---------- */
+.bp_tools{ display: flex; gap: 10px; margin-top: 14px; }
+.bp_search{ position: relative; flex: 1; }
+.bp_search i{ position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--bp-muted); }
+.bp_search_in{
+	width: 100%; height: 46px; padding: 0 14px 0 40px; border: 1px solid var(--bp-line); border-radius: 12px;
+	background: var(--bp-pill); font: inherit; font-size: 15px; color: var(--bp-text); outline: none;
+}
+.bp_search_in:focus{ border-color: var(--bp-green); background: var(--bp-card); }
+.bp_add{
+	flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; height: 46px; padding: 0 18px;
+	border: 0; border-radius: 12px; background: var(--bp-green); color: #fff; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer;
+}
+.bp_add:hover{ background: var(--bp-green-h); }
+@media (max-width: 400px){ .bp_add span{ display: none; } .bp_add{ padding: 0 16px; } }
+
+.bp_users{ display: flex; flex-direction: column; gap: 8px; padding: 14px 0 24px; max-width: 760px; }
+.bp_user{
+	display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 12px;
+	background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: var(--bp-r); box-shadow: var(--bp-shadow);
+}
+.bp_user_m{ flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.bp_user_av{ width: 46px; height: 46px; font-size: 18px; }
+.bp_user_t{ min-width: 0; }
+.bp_user_n{ font-size: 16px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bp_user_p{ margin-top: 2px; font-size: 14px; color: var(--bp-muted); }
+.bp_user_b{
+	flex: 0 0 auto; width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center;
+	background: var(--bp-pill); color: var(--bp-text); cursor: pointer; text-decoration: none;
+}
+.bp_user_call{ background: var(--bp-green-bg); color: var(--bp-green); }
+.bp_user_del:hover{ background: var(--bp-red-bg); color: var(--bp-red); }
+.uc_uil2_trt + .uc_uil2_trc{ margin-top: 4px; padding: 0; background: none; }
+.uc_uil2_trb .uc_uil2_trt2{ border: 0; padding: 0; }
+
+/* ---------- Курьерлер: тек «Қосу» батырмасы ---------- */
+.bp_tools .bp_add{ flex: 1; justify-content: center; height: 50px; }
+.bp_tools .bp_add span{ display: inline !important; }
+
+/* ---------- Курьер сүзгісі: чиптер ---------- */
+.bp_chips::-webkit-scrollbar{ display: none; }
+.bp_chip{
+	flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px;
+	border: 1px solid var(--bp-line); border-radius: 40px; background: var(--bp-card);
+	font-size: 14px; font-weight: 700; color: var(--bp-text); text-decoration: none; white-space: nowrap;
+}
+.bp_chip i{ color: var(--bp-muted); }
+.bp_chip_act{ background: var(--bp-text); border-color: var(--bp-text); color: #fff; }
+.bp_chip_act i{ color: #fff; }
+
+/* Карточкадағы курьер таңдау: стильді select */
+.uc_uil2_sel select{
+	-webkit-appearance: none; appearance: none; cursor: pointer;
+	background: var(--bp-green-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230d9660' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+	padding-right: 38px;
+}
+
+/* ---------- Төменгі мәзір: кассадағыдай сегмент, белсенді бөлімнің астында жылжымалы жасыл фон ---------- */
+.pmenu_i_act{ background: none; }
+.pmenu_sl{ display: none; }
+@media (max-width: 1024px){
+	.pmenu{ height: 219px; }
+	.pmenu_c{
+		position: relative; isolation: isolate;
+		display: grid; grid-template-columns: repeat(var(--n, 4), 1fr);
+		width: calc(100% - 24px); height: 64px; margin: 0 12px 10px; padding: 5px;
+		border: 1px solid var(--bp-line); border-radius: 18px; box-shadow: 0 6px 24px rgba(0,0,0,.10);
+	}
+	.pmenu_i{ position: relative; z-index: 1; width: auto; min-width: 0; height: 52px; padding: 0 2px; border-radius: 14px; color: var(--bp-text); -webkit-tap-highlight-color: transparent; }
+	.pmenu_i i{ font-size: 17px; }
+	.pmenu_i span{ margin-top: 3px; font-size: 11.5px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+	.pmenu_i_act{ color: #fff; background: none; }
+	.pmenu_sl{
+		display: block; position: absolute; z-index: 0; top: 5px; left: 5px;
+		width: calc((100% - 10px) / var(--n, 4)); height: 52px; border-radius: 14px;
+		background: var(--bp-green); box-shadow: 0 2px 8px rgba(16,169,106,.35);
+		transform: translateX(calc(var(--i, 0) * 100%)); transition: transform .3s cubic-bezier(.4,0,.2,1);
+	}
+	.pmenu_c.pm_noanim .pmenu_sl{ transition: none; }
+}
+@media (min-width: 1025px){ .pmenu_i_act{ background: var(--bp-green-bg); } }
+
+/* ---------- Попаптар мен формалар ---------- */
+.pop_bl_c{ border-radius: 20px 20px 0 0; }
+@media (min-width: 769px){ .pop_bl_c{ border-radius: 20px; } }
+.pop_bl_c .head_c h4{ font-size: 20px; font-weight: 800; }
+.pop_bl_c .btn_dd{ width: 40px; height: 40px; border-radius: 12px; background: var(--bp-pill); }
+.form_span{ font-size: 13px; font-weight: 700; color: var(--bp-muted); }
+.form_txt{ border-radius: 12px !important; border: 1px solid var(--bp-line) !important; background: var(--bp-pill) !important; }
+.form_txt:focus{ border-color: var(--bp-green) !important; background: #fff !important; }
+.form_im_bn .btn, .pass_ubd_send, .add_user_send, .edit_user_send{ width: 100%; height: 50px; border-radius: 14px; background: var(--bp-green); color: #fff; font-weight: 800; }
+.btn{ border-radius: 12px; }
+@media (max-width: 1024px){ .pmenu_c[style*="--n: 6"] .pmenu_i span{ font-size: 10px; letter-spacing: 0; } }
+
+/* ---------- Сол жақтан ашылатын мәзір ---------- */
+.bp_dr{ position: fixed; inset: 0; z-index: 3000; visibility: hidden; }
+.bp_dr_bg{ position: absolute; inset: 0; background: rgba(0,0,0,.35); opacity: 0; transition: opacity .25s; }
+.bp_dr_c{
+	position: absolute; top: 0; left: 0; bottom: 0; width: min(86vw, 340px); overflow-y: auto;
+	display: flex; flex-direction: column; gap: 14px; padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+	background: var(--bp-bg); box-shadow: 8px 0 30px rgba(0,0,0,.15);
+	transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+}
+.bp_dr_on{ visibility: visible; }
+.bp_dr_on .bp_dr_bg{ opacity: 1; }
+.bp_dr_on .bp_dr_c{ transform: none; }
+.bp_dr_h{ display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: 18px; }
+.bp_dr_h .bp_prof_av{ width: 48px; height: 48px; font-size: 20px; }
+.bp_dr_h .bp_prof_t{ flex: 1; }
+.bp_dr_h .bp_prof_n{ font-size: 17px; }
+.bp_dr_x{ width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; background: var(--bp-pill); cursor: pointer; }
+.bp_dr .bp_list{ background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: 18px; padding: 6px 0; }
+.bp_li_act .bp_li_ic{ background: var(--bp-green); color: #fff; }
+.bp_li_act .bp_li_t{ color: var(--bp-green-h); }
+.bp_dr_l{ padding: 14px; background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: 18px; }
+.bp_dr .bp_exit{ margin-top: auto; }
+
+/* ---------- Астынан шығатын панель (сол жақтан емес) ---------- */
+.bp_dr_c{
+	top: auto; left: 0; right: 0; bottom: 0; width: 100%; max-width: 560px; max-height: 86vh; margin: 0 auto;
+	border-radius: 22px 22px 0 0; padding-top: 8px; gap: 12px;
+	transform: translateY(100%); box-shadow: 0 -10px 40px rgba(0,0,0,.18);
+}
+.bp_dr_on .bp_dr_c{ transform: none; }
+.bp_dr_grab{ flex: 0 0 auto; width: 40px; height: 5px; margin: 0 auto 2px; border-radius: 5px; background: #d3d6db; }
+.bp_dr .bp_exit{ margin-top: 0; }
+.bp_sh_h{ display: flex; align-items: center; justify-content: space-between; font-size: 18px; font-weight: 800; padding: 0 2px; }
+.bp_li_av{ background: var(--bp-green-bg); color: var(--bp-green); font-weight: 800; }
+.bp_li_ok{ display: none; color: var(--bp-green); }
+.bp_li_act .bp_li_ok{ display: inline-block; }
+.bp_staff_i.bp_li_act .bp_li_ic{ background: var(--bp-green); color: #fff; }
+.bp_staff_off .bp_li_ic{ background: var(--bp-red-bg); color: var(--bp-red); }
+.bp_staff_off .bp_li_t{ color: var(--bp-red); }
+
+/* Карточкадағы «Курьер таңдау» батырмасы */
+.bp_pick{
+	display: flex; align-items: center; gap: 10px; height: 46px; margin-top: 8px; padding: 0 14px;
+	border: 1px solid var(--bp-green); border-radius: 12px; background: var(--bp-green-bg);
+	color: var(--bp-green-h); font-size: 15px; font-weight: 800; cursor: pointer; user-select: none;
+}
+.bp_pick span{ flex: 1; }
+.bp_pick:active{ transform: scale(.98); }
+
+/* Тіл: кассадағыдай 5 тақта */
+.bp_lang{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 0; background: none; border-radius: 0; }
+.bp_lang_i{ height: 54px; border-radius: 10px; background: var(--bp-pill); color: var(--bp-text); font-size: 13px; font-weight: 700; }
+.bp_lang_i:hover{ background: #ececec; }
+.bp_lang_i.bp_lang_act{ background: #1f75a8; color: #fff; }
+.bp_pick_flt{ margin-top: 12px; border-color: var(--bp-line); background: var(--bp-card); color: var(--bp-text); }
+.bp_pick_flt i{ color: var(--bp-muted); }
+.bp_li_act.bp_li .bp_li_av{ background: var(--bp-green); color: #fff; }
+.bp_dr .bp_list{ overflow-y: auto; }
+.bp_lock{ display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 12px 14px; border-radius: 12px; background: var(--bp-pill); color: var(--bp-muted); font-size: 14px; font-weight: 700; }
+
+/* Бос күй: биіктігі шектелмейді, белгіше таза дөңгелекте */
+.ds_nr{ height: auto; min-height: 0; padding: 40px 20px; gap: 14px; }
+.ds_nr i{
+	width: 64px; height: 64px; margin: 0; border-radius: 50%;
+	display: flex; align-items: center; justify-content: center;
+	background: var(--bp-pill); color: var(--bp-muted); font-size: 26px; box-shadow: none;
+}
+.ds_nr i::before, .ds_nr i::after{ background: none; box-shadow: none; }
+.ds_nr p{ font-size: 16px; font-weight: 700; color: var(--bp-muted); }
+
+/* Астынан шығатын тізім: артық сызықтарсыз, жолдар бөлек */
+.bp_dr .bp_list{ display: flex; flex-direction: column; gap: 4px; padding: 0; border: 0; background: none; box-shadow: none; border-radius: 0; }
+.bp_dr .bp_li, .bp_dr .bp_li + .bp_li{ border: 0; border-radius: 14px; background: var(--bp-card); min-height: 54px; }
+.bp_dr .bp_li:hover{ background: #fafafa; }
+.bp_dr .bp_li.bp_li_act{ background: var(--bp-green-bg); }
+.bp_dr_h, .bp_dr_l{ border: 0; }
+.bp_dr{ z-index: 5000; }
+
+/* Нөмір мен статус белгісі — статус түсімен (retail_orders_status.clr), курьер сайтындағыдай */
+.uc_uil2_nmb{ background: var(--st, var(--bp-green)); text-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.uc_ui .bp_st{ background: color-mix(in srgb, var(--st, #10a96a) 14%, #fff); color: var(--st, #10a96a); }
+
+/* ---------- Карточка: тауар жолдары мен мәтін (курьер сайтындағыдай реттеу) ---------- */
+.uc_uil2_trt, .uc_uil2_trb{ display: grid; grid-template-columns: minmax(0, 1fr) 56px 88px; align-items: baseline; column-gap: 8px; margin-bottom: 0; }
+.uc_uil2_trt1, .uc_uil2_trt2, .uc_uil2_trt3{ width: auto !important; }
+.uc_uil2_trt1{ grid-column: 1; }
+.uc_uil2_trt2{ grid-column: 2; text-align: center; }
+.uc_uil2_trt3{ grid-column: 3; text-align: right; white-space: nowrap; }
+.uc_uil2_raz > .uc_uil2_trt:first-child{ padding-bottom: 2px; }
+/* Тауарлар: әр жол бөлек, арасында үзік сызық */
+.uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt{ padding: 7px 0; border-bottom: 1px dashed var(--bp-line); }
+.uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt:last-child{ border-bottom: 0; }
+.uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt1{ font-size: 15px; font-weight: 600; line-height: 1.3; color: var(--bp-text); }
+.uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt2{ font-size: 14px; font-weight: 600; color: var(--bp-muted); }
+.uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt3{ font-size: 15px; font-weight: 700; color: var(--bp-text); }
+/* Жеткізу ақысы: қосымша жол, сұрырақ */
+.uc_ui .uc_uil2_trt.bp_tr_dl .uc_uil2_trt1, .uc_ui .uc_uil2_trt.bp_tr_dl .uc_uil2_trt3{ font-size: 14px; font-weight: 600; color: var(--bp-muted); }
+/* Жалпы */
+.uc_uil2_trb{ margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--bp-line); }
+.uc_uil2_trb .uc_uil2_trt1{ font-size: 16px; font-weight: 800; }
+.uc_uil2_trb .uc_uil2_trt3{ font-size: 20px; font-weight: 800; }
+/* Төлем блогы: сұр қорап ішінде */
+.uc_uil2_trb + .uc_uil2_trc{ margin-top: 10px; padding: 6px 12px; }
+.uc_uil2_trb + .uc_uil2_trc .uc_uil2_trt{ padding: 6px 0; }
+.uc_uil2_trb + .uc_uil2_trc .uc_uil2_trt1{ font-size: 14px; color: var(--bp-muted); font-weight: 600; }
+.uc_uil2_trb + .uc_uil2_trc .uc_uil2_trt2{ display: none; }
+.uc_uil2_trb + .uc_uil2_trc .uc_uil2_trt3{ grid-column: 2 / 4; font-size: 15px; font-weight: 700; }
+.uc_uil2_trb + .uc_uil2_trc .uc_uil2_trt b{ color: var(--bp-text); font-weight: 800; }
+/* Мекенжай, телефон, курьер: белгі үстінде, мәні астында */
+.uc_uil2_mi{ display: block; margin-bottom: 10px; }
+.uc_uil2_mi:last-child{ margin-bottom: 0; }
+.uc_uil2_mi1{ display: block; margin-bottom: 3px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--bp-muted); }
+.uc_uil2_mi2{ display: block; font-size: 16px; font-weight: 800; line-height: 1.3; }
+
+/* ========== Карточка курьер сайтындағыдай (dlv.berik.c/assets/css/berik.css) ========== */
+:root{ --bp-blue: #1f75a8; --bp-blue-h: #18618b; --bp-shadow2: 0 6px 22px -8px rgba(0,0,0,.18); }
+.btn{ border-radius: 12px; font-weight: 700; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.btn:active{ transform: scale(.97); }
+.btn_cl{ background: #fff; color: var(--bp-text); border: 1px solid var(--bp-line); }
+.btn_cl:hover{ border-color: var(--bp-blue); color: var(--bp-blue); background: #fff; }
+.btn_phone{ background: var(--bp-blue); color: #fff; border: 0; }
+.btn_whatsapp{ background: #25d366; color: #fff; border: 0; }
+
+.uc_ui{
+	border: 1px solid var(--bp-line);
+	border-radius: 16px; padding: 16px 14px; box-shadow: var(--bp-shadow2);
+}
+.uc_uil2_top{ gap: 0; }
+.uc_uil2_nmb{ width: auto; min-width: 64px; height: 64px; border-radius: 14px; font-size: 24px; font-weight: 800; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
+.uc_uil2_date{ flex: 1; margin: 0 12px; font-size: 14px; color: var(--bp-muted); }
+.uc_uil2_date1{ font-size: 17px; font-weight: 800; color: var(--bp-text); }
+.uc_uil2_raz{ border-top: 1px solid var(--bp-line); margin-top: 14px; padding-top: 14px; }
+.uc_uil2_mi2{ font-size: 17px; }
+.uc_uil2_fa{
+	display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 6px 12px;
+	background: var(--bp-pill); border-radius: 20px; font-size: 15px; font-weight: 800; color: var(--bp-text);
+}
+.uc_uil2_mib{ gap: 10px; }
+.uc_uil2_mib .btn{ min-height: 48px; height: 48px; font-size: 15px; border-radius: 12px; }
+.uc_uil2_mib .btn_cl{ background: #fff; border: 1px solid var(--bp-line); color: var(--bp-text); }
+.uc_uil2_mib .btn_cl:hover{ border-color: var(--bp-blue); color: var(--bp-blue); }
+
+/* Берілді / Столда батырмасы: курьердегі ✓ сияқты жасыл */
+.uc_uil2_chek{ display: flex; gap: 8px; width: auto; }
+.uc_uil2_chek .btn{ height: 48px; min-height: 48px; border-radius: 12px; font-size: 15px; background: var(--bp-green); border: 0; color: #fff; }
+
+/* Бос тізім (админдегідей) */
+.ds_nr{ gap: 6px; padding: 40px 20px; border: 1px solid var(--bp-line); border-radius: 16px; box-shadow: var(--bp-shadow); }
+.ds_nr i{ width: auto; height: auto; margin: 0 0 6px; font-size: 40px; line-height: 1; color: #c3c8cf; background: none; }
+.ds_nr p{ font-size: 17px; font-weight: 800; color: var(--bp-text); }
+/* Сол жақтағы түсті жолақ жоқ: курьер сайтындағыдай жұқа сұр шекара */
+.uc_ui{ border: 1px solid var(--bp-line); border-left: 1px solid var(--bp-line); }
+
+/* Оператор, Мекенжай, Нөмір, Курьер: ықшам — белгі мен мәні бір жолда */
+.uc_uil2_mi{ display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.uc_uil2_mi:last-child{ margin-bottom: 0; }
+.uc_uil2_mi1{ flex: 0 0 auto; display: inline; margin: 0; font-size: 13px; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--bp-muted); }
+.uc_uil2_mi2{ display: inline; font-size: 15px; font-weight: 700; line-height: 1.35; }
+.uc_uil2_raz{ margin-top: 12px; padding-top: 12px; }
+.uc_uil2_mib .btn{ min-height: 42px; height: 42px; font-size: 14px; }
+.uc_uil2_fa{ margin-top: 4px; }
+.bp_lock{ margin-top: 6px; padding: 8px 12px; font-size: 13px; }
+
+/* Тауарлар мен сома блогы: ықшам */
+.uc_uil2_raz > .uc_uil2_trt:first-child .uc_uil2_trt1,
+.uc_uil2_raz > .uc_uil2_trt:first-child .uc_uil2_trt2,
+.uc_uil2_raz > .uc_uil2_trt:first-child .uc_uil2_trt3{ font-size: 10.5px; font-weight: 700; letter-spacing: .4px; }
+.uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt{ padding: 5px 0; }
+.uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt1, .uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt3{ font-size: 14px; }
+.uc_uil2_trt + .uc_uil2_trc .uc_uil2_trt2{ font-size: 13px; }
+.uc_uil2_trb{ margin-top: 4px; padding-top: 8px; }
+.uc_uil2_trb .uc_uil2_trt1{ font-size: 15px; }
+.uc_uil2_trb .uc_uil2_trt3{ font-size: 18px; }
+.uc_uil2_trb + .uc_uil2_trc{ margin-top: 8px; padding: 4px 12px; }
+.uc_uil2_trb + .uc_uil2_trc .uc_uil2_trt{ grid-template-columns: minmax(0, 1fr) auto; padding: 5px 0; }
+.uc_uil2_trb + .uc_uil2_trc .uc_uil2_trt1{ font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.uc_uil2_trb + .uc_uil2_trc .uc_uil2_trt3{ grid-column: 2; font-size: 14px; }
+
+/* «Толығырақ» → тарих попабы */
+.bp_sh_h b{ color: var(--bp-muted); font-weight: 700; margin-left: 4px; }
+.oh_list{ display: flex; flex-direction: column; padding: 6px 4px 4px; overflow-y: auto; }
+.oh_r{ position: relative; display: flex; gap: 12px; padding: 0 0 16px; }
+.oh_r:not(:last-child)::before{ content: ""; position: absolute; left: 6px; top: 16px; bottom: 0; width: 2px; background: var(--bp-line); }
+.oh_dot{ flex: 0 0 auto; width: 14px; height: 14px; margin-top: 3px; border-radius: 50%; background: #c3c8cf; box-shadow: 0 0 0 3px var(--bp-bg); }
+.oh_t{ display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.oh_t b{ font-size: 15px; font-weight: 800; }
+.oh_t span{ font-size: 14px; color: var(--bp-text); word-break: break-word; }
+.oh_t small{ font-size: 13px; color: var(--bp-muted); }
+.oh_none{ padding: 30px; text-align: center; color: var(--bp-muted); }
+
+/* 3+ тағам: 2-еуі көрінеді, қалғаны «+N тағы» батырмасымен */
+.bp_more_i{ display: none !important; }
+.bp_more_on .bp_more_i{ display: grid !important; }
+.bp_more{ display: flex; align-items: center; justify-content: center; gap: 6px; margin: 4px 0 2px; height: 32px; border-radius: 9px; background: var(--bp-pill); color: var(--bp-text); font-size: 13px; font-weight: 700; cursor: pointer; user-select: none; }
+.bp_more i{ font-size: 11px; color: var(--bp-muted); transition: transform .2s; }
+.bp_more_on .bp_more i{ transform: rotate(180deg); }
+
+/* Уақыт кассадағыдай: үлкен, қалың */
+.bp_tm{ margin-top: 2px; }
+.bp_time{ font-size: 26px; line-height: 1.1; font-weight: 800; color: #1d2433; letter-spacing: .3px; }
+
+/* Статус тарихы: кассадағыдай белгіше және уақыт сызығы */
+.bp_tm{ position: relative; }
+.bp_hist_ic{ width: 40px; height: 40px; margin-left: auto; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; background: #f3f7fb; border: 1px solid #e1eaf2; color: #1f75a8; font-size: 18px; cursor: pointer; }
+.bp_hist_ic:active{ transform: scale(.94); }
+.uc_uil2_date .bp_tm{ display: flex; align-items: center; gap: 8px; }
+.bp_hist_sh .oh_list{ display: block; padding: 4px 4px 0; }
+.oh_row{ display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: 14px; color: #1d2433; }
+.oh_nm{ flex: 1; min-width: 0; }
+.oh_cur .oh_nm{ font-weight: 800; }
+.oh_dt{ display: flex; flex-direction: column; align-items: flex-end; line-height: 1.2; }
+.oh_dt b{ font-weight: 800; font-size: 14px; }
+.oh_dt small{ font-size: 12px; color: #8a94a3; }
+.oh_foot{ margin-top: 6px; padding: 6px 4px 0; border-top: 1px dashed #e3e6ea; }
+.oh_foot .oh_nm{ color: #8a94a3; }
+.oh_list{ position: relative; }
+.oh_list .oh_row{ position: relative; box-sizing: border-box; height: 46px; padding: 0 0 0 2px; }
+.oh_list .oh_row:not(:last-child)::before{ content: ''; position: absolute; left: 7px; width: 2px; top: 50%; height: 100%; background: #e8ebef; }
+.oh_list .oh_row.oh_link::after{ content: ''; position: absolute; left: 7px; width: 2px; top: 50%; height: 100%; background: linear-gradient(to bottom, var(--c), var(--n)); transform: scaleY(0); transform-origin: top; animation: oh_fill .35s ease-out forwards; animation-delay: calc(var(--i) * .12s + .1s); }
+.oh_list .oh_dot{ position: relative; z-index: 1; width: 12px; height: 12px; flex: 0 0 12px; margin: 0; border-radius: 50%; background: #e3e6ea; box-shadow: 0 0 0 3px #fff; }
+.oh_list .oh_on .oh_dot{ animation: oh_dot .25s ease-out forwards; animation-delay: calc(var(--i) * .12s); }
+.oh_list .oh_cur .oh_dot{ animation: oh_dot .25s ease-out forwards, oh_pulse 1.6s ease-out infinite; animation-delay: calc(var(--i) * .12s), calc(var(--i) * .12s + .3s); }
+.oh_list .oh_row:not(.oh_on) .oh_nm{ color: #a3abb5; }
+.oh_list .oh_skip .oh_nm{ text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #c4cad2; color: #b4bbc4; }
+.oh_list .oh_skip .oh_dot{ background: #fff; box-shadow: 0 0 0 3px #fff, inset 0 0 0 2px #d3d8de; }
+.oh_list .oh_row.oh_dash::before{ background: repeating-linear-gradient(to bottom, #d3d8de 0 4px, transparent 4px 8px); }
+@keyframes oh_fill{ to{ transform: scaleY(1); } }
+@keyframes oh_dot{ 0%{ background: #e3e6ea; transform: scale(.6); } 70%{ transform: scale(1.25); } 100%{ background: var(--c); transform: scale(1); } }
+@keyframes oh_pulse{ 0%{ box-shadow: 0 0 0 3px #fff, 0 0 0 3px color-mix(in srgb, var(--c) 45%, transparent); } 100%{ box-shadow: 0 0 0 3px #fff, 0 0 0 12px transparent; } }
+/* Толығырақ беті */
+.ord_page{ padding-top: 16px; padding-bottom: 24px; }
+.ord_back{ display: inline-flex; align-items: center; gap: 8px; height: 40px; margin-bottom: 12px; padding: 0 14px; background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: 20px; font-weight: 700; color: var(--bp-text); text-decoration: none; }
+.ord_box{ margin-top: 12px; padding: 14px; background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: 16px; box-shadow: var(--bp-shadow); }
+.ord_box_h{ margin-bottom: 6px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; color: var(--bp-muted); }
+.ord_page .uc_ui{ max-width: 640px; }
+.ord_page .ord_box{ max-width: 640px; }
+
+/* «Картадан ашу»: курьер сайтындағымен бірдей (dlv.berik.c/assets/css/berik.css) */
+.uc_uil2_mib .btn_map, .btn_map{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:50px;height:50px;padding:0 14px;background:#eef6fb;border:1px solid #cfe3f0;border-radius:12px;color:#1f75a8;font-size:15px;font-weight:800;text-decoration:none;transition:background .15s,border-color .15s,transform .1s}
+.btn_map i{font-size:18px}
+.btn_map small{padding:3px 8px;border-radius:8px;background:#fff;border:1px solid #cfe3f0;font-size:12px;font-weight:700;color:#1f75a8}
+.uc_uil2_mib .btn_map:hover, .btn_map:hover{background:#e2f0f9;border-color:#1f75a8;color:#1f75a8}
+.btn_map:active{transform:scale(.98)}
+
+/* «Курьер бойынша» сүзгісі: админдегі select сияқты */
+.bp_pick_flt{
+	height: 56px; margin-top: 12px; padding: 0 14px 0 8px; gap: 12px;
+	background: #fff; border: 1px solid var(--bp-line); border-radius: 14px; box-shadow: var(--bp-shadow);
+	color: var(--bp-text); transition: border-color .15s, box-shadow .15s;
+}
+.bp_pick_flt:hover{ border-color: #c9ced8; }
+.bp_flt_ic{ flex: 0 0 auto; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 11px; background: #eef6fb; color: #1f75a8; font-size: 16px; }
+.bp_flt_t{ flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.2; }
+.bp_flt_t small{ font-size: 12px; font-weight: 700; color: var(--bp-muted); }
+.bp_flt_t b{ font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bp_flt_ar{ color: var(--bp-muted); font-size: 13px; }
+.bp_flt_on{ border-color: #cfe3f0; background: #f7fbfe; }
+.bp_flt_on .bp_flt_ic{ background: #1f75a8; color: #fff; }
+
+/* Жаңа / Жолда / Аяқталған: кассадағы жоғарғы табтар сияқты (.mp_topc / .mp_topi) */
+.bp_tabs{ gap: 4px; margin-top: 14px; padding: 3px; height: auto; background: var(--bp-card); border: 1px solid var(--bp-line); border-radius: 40px; box-shadow: var(--bp-shadow); }
+.bp_tab{ height: 38px; border-radius: 32px; background: var(--bp-pill); color: var(--bp-text); font-size: 14px; font-weight: 600; box-shadow: none; }
+.bp_tab:hover{ background: #ececec; color: var(--bp-text); }
+.bp_tab_act, .bp_tab_act:hover{ background: var(--bp-green); color: #fff; font-weight: 700; box-shadow: none; }
+.bp_pick_flt .bp_flt_ic{ flex: 0 0 40px; }
+
+/* Тарих: «Статус / Өзгерістер» табтары және өзгерістер тізімі (кассадағыдай) */
+.dsp_n{ display: none !important; }
+.oh_tabs{ display: flex; gap: 4px; padding: 4px; margin: 2px 0 8px; background: #f2f5f8; border-radius: 10px; }
+.oh_tab{ flex: 1; height: 36px; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 8px; font-size: 13px; font-weight: 800; color: #6b7480; cursor: pointer; user-select: none; }
+.oh_tab i{ font-style: normal; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: #dfe6ec; color: #1d2433; font-size: 11px; line-height: 18px; text-align: center; }
+.oh_tab_act{ background: #fff; color: #1f75a8; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.oh_tab_act i{ background: #1f75a8; color: #fff; }
+.oh_cl{ padding: 8px 0; font-size: 13px; }
+.oh_cl + .oh_cl{ border-top: 1px dashed #eef0f3; }
+.oh_cl_t{ display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 3px; }
+.oh_cl_f{ font-size: 12px; font-weight: 800; color: #8a94a3; text-transform: uppercase; letter-spacing: .3px; }
+.oh_cl_t small{ font-size: 12px; color: #a3abb5; white-space: nowrap; }
+.oh_cl_v{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px; color: #1d2433; word-break: break-word; }
+.oh_cl_v s{ color: #a3abb5; }
+.oh_cl_v b{ font-weight: 800; }
+.oh_it{ padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 12px; }
+.oh_it_add{ background: #e6f6ee; color: #0b8a55; }
+.oh_it_del{ background: #fde8e8; color: #d23c41; text-decoration: line-through; }
+.oh_it_qn{ background: #eef4f9; color: #1f75a8; }
+.oh_new{ font-weight: 800; color: #1f75a8; }
+.oh_sum{ font-size: 12px; color: #6b7480; }
+.oh_empty{ padding: 16px 0; text-align: center; color: #a3abb5; font-size: 13px; }
+.bp_hist_sh .oh_list{ display: block; }
+
+/* Тарих анимациясы: панель астынан шығады, жолдар кезекпен пайда болады (кассадағыдай) */
+.oh_list .oh_row .oh_dt, .oh_list .oh_row .oh_nm{ opacity: 0; animation: oh_in .3s ease-out forwards; animation-delay: calc(var(--i) * .12s); }
+.oh_pane .oh_cl{ opacity: 0; animation: oh_in .3s ease-out forwards; }
+.oh_pane .oh_cl:nth-child(2){ animation-delay: .05s; } .oh_pane .oh_cl:nth-child(3){ animation-delay: .1s; } .oh_pane .oh_cl:nth-child(4){ animation-delay: .15s; } .oh_pane .oh_cl:nth-child(n+5){ animation-delay: .2s; }
+.oh_pane{ animation: oh_in .25s ease-out; }
+@keyframes oh_in{ from{ opacity: 0; transform: translateX(-4px); } to{ opacity: 1; transform: none; } }
+.bp_dr_bg{ transition: opacity .3s; }
+.bp_dr_c{ transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+.bp_dr{ transition: visibility 0s linear .35s; }
+.bp_dr_on{ transition: visibility 0s; }
+
+/* Табтар: дөңгелек емес, админ/кассадағы табтар сияқты (бұрыш 12/9px) */
+.bp_tabs{ padding: 4px; gap: 4px; background: #f2f5f8; border: 0; border-radius: 12px; box-shadow: none; }
+.bp_tab{ height: 40px; border-radius: 9px; background: none; color: #6b7480; font-size: 14px; font-weight: 800; }
+.bp_tab:hover{ background: rgba(255,255,255,.6); color: var(--bp-text); }
+.bp_tab_act, .bp_tab_act:hover{ background: #fff; color: var(--bp-green); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+/* Табтар: белсенді фон жылжиды (сегмент) */
+.bp_tabs{ position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); }
+.bp_tab{ position: relative; z-index: 1; }
+.bp_tab_act, .bp_tab_act:hover{ background: none; box-shadow: none; }
+.bp_tabs_sl{
+	position: absolute; z-index: 0; top: 4px; left: 4px; height: calc(100% - 8px);
+	width: calc((100% - 8px - (var(--n, 3) - 1) * 4px) / var(--n, 3));
+	border-radius: 9px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+	transform: translateX(calc(var(--i, 0) * (100% + 4px))); transition: transform .3s cubic-bezier(.4,0,.2,1);
+}
+.bp_tabs.pm_noanim .bp_tabs_sl{ transition: none; }
+
+/* Курьер блогы: кассадағыдай (.or_courier / .cr_btn) */
+.or_courier{ display: flex; align-items: center; gap: 12px; min-height: 54px; margin-top: 12px; padding: 5px 6px 5px 12px; background: #f2f7fb; border: 1px solid #dbe6ee; border-radius: 12px; box-sizing: border-box; }
+.or_courier_l{ display: flex; align-items: center; gap: 8px; font-weight: 800; color: #1f75a8; white-space: nowrap; }
+.cr_btn{ flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; height: 42px; padding: 0 14px; background: #fff; border: 1px solid #dbe6ee; border-radius: 10px; cursor: pointer; }
+.cr_btn b{ min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; color: #1d2433; }
+.cr_btn i{ margin-left: auto; color: #1f75a8; font-size: 13px; }
+.cr_btn:active{ transform: scale(.98); }
+.cr_dis .cr_btn{ cursor: default; }
+.cr_dis .cr_btn i{ color: #a3abb5; }
+
+/* Курьер блогы: үлкенірек */
+.or_courier{ min-height: 66px; padding: 7px 8px 7px 14px; gap: 14px; border-radius: 14px; }
+.or_courier_l{ font-size: 17px; gap: 10px; }
+.or_courier_l i{ font-size: 20px; }
+.cr_btn{ height: 52px; padding: 0 16px; border-radius: 12px; }
+.cr_btn b{ font-size: 17px; font-weight: 800; }
+.cr_btn i{ font-size: 15px; }
+/* Курьер блогы: сыртқы 64px, ішкі батырма 54px */
+.or_courier{ height: 64px; min-height: 64px; padding: 4px 4px 4px 14px; box-sizing: border-box; }
+.cr_btn{ height: 54px; box-sizing: border-box; }
+
+/* Астынан шығатын панельдер: ақ фон (кассадағыдай), тізім жолдары ашық сұр */
+.bp_dr_c{ background: #fff; }
+.bp_dr .bp_li, .bp_dr .bp_li + .bp_li{ background: var(--bp-pill); }
+.bp_dr .bp_li:hover{ background: #ececec; }
+.bp_dr .bp_li.bp_li_act{ background: var(--bp-green-bg); }
+.bp_dr .bp_li_ic{ background: #fff; }
+.oh_list .oh_dot{ box-shadow: 0 0 0 3px #fff; }
+
+/* Аккаунт: төменгі жазу (gprog + Berik POS) — курьер сайтындағыдай */
+.up_cg{ display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 36px 0 24px; }
+.up_cg .gprog_bl{ display: inline-flex; align-items: center; gap: 6px; color: var(--bp-muted); font-size: 13px; font-weight: 600; text-decoration: none; }
+.up_cg .gprog_heart{ font-size: 13px; color: #e5484d; line-height: 1; }
+.up_brand{ display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #b3b8c2; }
+.up_brand::before, .up_brand::after{ content: ""; width: 24px; height: 1px; background: #d9dce1; }
