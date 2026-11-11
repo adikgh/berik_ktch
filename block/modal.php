@@ -16,7 +16,7 @@
                <div class="form_icon"><i class="far fa-user"></i></div>
             </div>
             <div class="form_im">
-               <input type="tel" class="form_im_txt phone fr_phone" placeholder="+7 (___) ___-__-__">
+               <input type="tel" class="form_im_txt phone fr_phone" placeholder="8 (700) 000-00-00">
                <div class="form_icon"><i class="far fa-phone-alt"></i></div>
             </div>
             <div class="form_im form_im_bn">

@@ -103,7 +103,7 @@ $(document).ready(function() {
 			data: ({ id: $(this).attr('data-id') }),
 			success: function(data){
 				$('.edit_clp').html(data)
-				$('.fr_phone').mask('8 (000) 000-00-00');
+				$('.fr_phone').mask('8 (700) 000-00-00');
 				// console.log(data)
 			},
 			beforeSend: function(){ },

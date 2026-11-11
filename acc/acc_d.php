@@ -62,7 +62,7 @@
          <div class="uacc_in">Телефон нөміріңіз:</div>
          <div class="uacc_ic">
             <div class="form_im">
-               <input type="text" class="form_im_txt phone fr_phone" placeholder="8 (000) 000-00-00" data-lenght="6" data-sel="1" value="<?=$user['phone']?>" data-val="<?=$user['phone']?>" />
+               <input type="text" class="form_im_txt phone fr_phone" placeholder="8 (700) 000-00-00" data-lenght="6" data-sel="1" value="<?=$user['phone']?>" data-val="<?=$user['phone']?>" />
             </div>
          </div>
       </div>
