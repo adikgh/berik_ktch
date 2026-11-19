@@ -51,14 +51,26 @@ function ask(q, yes, o) {
    var bg = $('<div class="ask_bg"><div class="ask"><div class="ask_i"><i class="far ' + (o.danger ? 'fa-trash-alt' : 'fa-check-circle') + '"></i></div><div class="ask_q"></div><div class="ask_b"><span class="ask_no" tabindex="0"></span><span class="ask_ok" tabindex="0"></span></div></div></div>')
    if (o.danger) bg.addClass('ask_dg')
    bg.find('.ask_q').html(q); bg.find('.ask_no').text(o.no || 'Жоқ'); bg.find('.ask_ok').text(o.ok || 'Иә')
+   // o.input берілсе — мән енгізетін өріс (браузердің prompt() орнына): yes(мән) шақырылады
+   var inp = null
+   if (o.input !== undefined) {
+      if (!document.getElementById('ask_in_css')) { var cs = document.createElement('style'); cs.id = 'ask_in_css'; cs.textContent = '.ask_in{display:block;width:100%;box-sizing:border-box;margin:-6px 0 16px;padding:11px 12px;border:1px solid #d1d5db;border-radius:10px;font-size:16px;text-align:center;outline:none;font-family:inherit}.ask_in:focus{border-color:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2)}'; document.head.appendChild(cs) }
+      inp = $('<input class="ask_in" autocomplete="off">').attr({ type: o.type || 'text', inputmode: o.mode || null, placeholder: o.ph || '' }).val(o.input == null ? '' : o.input)
+      bg.find('.ask_q').after(inp)
+   }
    $('body').append(bg)
    requestAnimationFrame(function(){ bg.addClass('ask_on') })
    function close(){ bg.removeClass('ask_on'); $(document).off('keydown.ask'); setTimeout(function(){ bg.remove() }, 200) }
    bg.on('click', function(e){ if (e.target === this) close() })
    bg.on('click', '.ask_no', close)
-   bg.on('click', '.ask_ok', function(){ close(); if (yes) yes() })
+   bg.on('click', '.ask_ok', function(){ close(); if (yes) yes(inp ? inp.val() : undefined) })
    $(document).on('keydown.ask', function(e){ if (e.key === 'Escape') close(); if (e.key === 'Enter') { e.preventDefault(); bg.find('.ask_ok').click() } })
-   setTimeout(function(){ bg.find('.ask_ok').focus() }, 30)
+   setTimeout(function(){ if (inp) inp.focus().select(); else bg.find('.ask_ok').focus() }, 30)
+}
+// Мән сұрау (prompt() орнына): askIn('Саны', 1, function (v) { ... }, { ok: 'Сақтау', mode: 'decimal' })
+function askIn(q, val, yes, o) {
+   o = $.extend({ ok: 'Сақтау', no: 'Болдырмау' }, o || {}); o.input = val == null ? '' : val
+   ask(q, yes, o)
 }
 
 

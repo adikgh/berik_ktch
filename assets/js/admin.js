@@ -220,7 +220,8 @@ $(document).ready(function() {
    // user del
    $('html').on('click', '.user_del', function(){
       btn = $(this)
-      if (btn.data('confirm') && !confirm(btn.data('confirm'))) return
+      if (btn.data('confirm') && !btn.data('ok')) { var bb = btn; return ask(bb.data('confirm'), function () { bb.data('ok', 1).click() }, { ok: 'Өшіру', danger: true }) }
+      btn.data('ok', 0)
       $.ajax({
          url: "/users/get.php?user_del",
          type: "POST",

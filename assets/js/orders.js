@@ -1,7 +1,8 @@
 // Кухня: Дайындау / Дайын / Қайтару
 document.addEventListener('click', function (e) {
 	var b = e.target.closest('.on_kst'); if (!b || b.classList.contains('kt_busy')) return
-	if (b.dataset.ask && !confirm(b.dataset.ask)) return
+	if (b.dataset.ask && !b._ok) return ask(b.dataset.ask, function () { b._ok = 1; b.click() })
+	b._ok = 0
 	b.classList.add('kt_busy')
 	$.ajax({ url: '/orders/get.php?kitchen_status', type: 'POST', dataType: 'html', data: { id: b.dataset.id, st: b.dataset.st },
 		success: function (d) {
