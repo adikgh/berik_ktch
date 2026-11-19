@@ -116,11 +116,12 @@
 	});
 
 	$doc.on('click', '.wb_delete', function () {
-		if (!confirm($(this).data('ask'))) return;
+		ask($(this).data('ask'), function () {
 		$.post('/waybill/get.php?delete', { csrf: $doc.data('csrf'), id: $doc.data('id') }, function (r) {
 			say(r.msg);
 			if (r.ok) setTimeout(function () { location.href = '/waybill/'; }, 600);
 		}, 'json');
+		}, { ok: 'Өшіру', danger: true });
 	});
 
 	total();
