@@ -6,6 +6,7 @@
 
 </head>
 <body id="body" class="body">
+	<?=(!empty($user_id) && class_exists('plan', false)) ? plan::banner() : ''?>
 	
 	<? include "menu.php"; ?>
 

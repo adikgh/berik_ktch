@@ -1,9 +1,11 @@
 <?
-	// Кухня: накладной тіркеу. Кестелер adm.berik.c/waybill-пен ортақ (supplier, waybill, waybill_item, product_raw).
+	// Кухня: накладной тіркеу. Кестелер adm.berik.c/waybill-пен ортақ (supplier, waybill, waybill_item, product_raw, supplier_item).
 	// Кухня тек жоба (status 0) сақтайды, қалдыққа қосуды (қабылдау) админ жасайды.
+	// Фото/PDF/Excel-ден оқу админдегідей: assets/js/waybill_import.js (админнен көшірме) + waybill/ai.php (Claude).
 
 	class kwb {
 		public static $units = ['кг', 'г', 'л', 'мл', 'шт', 'қап', 'қорап', 'бума'];
+		public static $rights = [1, 2, 3, 9]; // Создатель, Директор, Управляющий, Повар
 
 		public static function esc($v) { return mysqli_real_escape_string(db::$connect, trim(strip_tags((string)$v))); }
 		public static function h($v) { return htmlspecialchars((string)$v, ENT_QUOTES); }
@@ -17,6 +19,17 @@
 			$map = ['шт' => ['шт', 'штук', 'штука', 'штуки', 'дана', 'ед'], 'кг' => ['кг', 'kg', 'килограмм'], 'г' => ['г', 'гр', 'грамм'], 'л' => ['л', 'литр'], 'мл' => ['мл', 'ml']];
 			foreach ($map as $n => $list) if (in_array($k, $list, true)) return $n;
 			return mb_substr($k, 0, 20);
+		}
+
+		// кестеде баған бар ма (кесте жоқ болса да false)
+		private static $cols = [];
+		public static function has_col($t, $c) {
+			$k = $t.'.'.$c;
+			if (!isset(self::$cols[$k])) {
+				$q = @db::query("SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '".self::esc($t)."' AND COLUMN_NAME = '".self::esc($c)."' LIMIT 1");
+				self::$cols[$k] = $q && mysqli_num_rows($q) > 0;
+			}
+			return self::$cols[$k];
 		}
 
 		public static function get($id, $cmp) {
@@ -34,5 +47,10 @@
 		public static function csrf() {
 			if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(16));
 			return $_SESSION['csrf'];
+		}
+		// токен POST-та немесе X-CSRF тақырыбында (импорт скрипті $.ajaxSetup арқылы жібереді)
+		public static function csrf_ok() {
+			$t = (string)(@$_POST['csrf'] ?: @$_SERVER['HTTP_X_CSRF']);
+			return $t !== '' && hash_equals(self::csrf(), $t);
 		}
 	}

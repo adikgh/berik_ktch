@@ -42,6 +42,11 @@
 					<span class="bp_li_t"><?=t::w('Бүгін дайын болғандар', 'Готовые за сегодня')?></span>
 					<i class="far fa-chevron-right bp_li_ar"></i>
 				</a>
+				<a class="bp_li" href="/pay/">
+					<span class="bp_li_ic"><i class="far fa-wallet"></i></span>
+					<span class="bp_li_t"><?=t::w('Оплата', 'Оплата')?></span>
+					<i class="far fa-chevron-right bp_li_ar"></i>
+				</a>
 				<div class="bp_li pass_ubd_btn">
 					<span class="bp_li_ic"><i class="far fa-key"></i></span>
 					<span class="bp_li_t"><?=t::w('Құпиясөзді өзгерту', 'Сменить пароль')?></span>

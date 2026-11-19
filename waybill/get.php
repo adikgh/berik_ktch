@@ -4,8 +4,8 @@
 	header('Content-Type: application/json; charset=utf-8');
 	function out($ok, $data = []) { exit(json_encode(array_merge(['ok' => $ok], $data), JSON_UNESCAPED_UNICODE)); }
 
-	if (!$user_id || !in_array((int)@$user_right['positions_id'], [1, 2, 3, 9])) out(false, ['msg' => t::w('Кіру рұқсаты жоқ', 'Нет доступа')]);
-	if (!hash_equals(kwb::csrf(), (string)@$_POST['csrf'])) out(false, ['msg' => t::w('Бетті жаңартып, қайта көріңіз', 'Обновите страницу и попробуйте снова')]);
+	if (!$user_id || !in_array((int)@$user_right['positions_id'], kwb::$rights)) out(false, ['msg' => t::w('Кіру рұқсаты жоқ', 'Нет доступа')]);
+	if (!kwb::csrf_ok()) out(false, ['msg' => t::w('Бетті жаңартып, қайта көріңіз', 'Обновите страницу и попробуйте снова')]);
 	$cmp = (int)$company;
 	$now = date('Y-m-d H:i:s');
 
@@ -14,15 +14,21 @@
 		$id = (int)@$_POST['id'];
 		if ($id && !kwb::can_edit(kwb::get($id, $cmp), $user_id)) out(false, ['msg' => t::w('Бұл накладнойды өзгертуге болмайды', 'Эту накладную нельзя изменить')]);
 
-		// жеткізуші: тізімнен немесе жаңа атау
-		$sup = 0;
-		$sup_name = kwb::esc(mb_substr((string)@$_POST['supplier'], 0, 255));
-		if ($sup_name !== '') {
-			$ex = db::query("select id from supplier where company_id = '$cmp' and name = '$sup_name' limit 1");
-			if ($ex && mysqli_num_rows($ex)) $sup = (int)mysqli_fetch_assoc($ex)['id'];
-			else { db::query("insert into supplier (company_id, name) values ('$cmp', '$sup_name')"); $sup = (int)mysqli_insert_id(db::$connect); }
+		// жеткізуші: тізімнен (supplier_id) немесе жаңа атау (supplier_id = new + supplier_new)
+		$sup = (string)@$_POST['supplier_id'];
+		if ($sup === 'new') {
+			$sup_name = kwb::esc(mb_substr((string)@$_POST['supplier_new'], 0, 255));
+			$sup = 0;
+			if ($sup_name !== '') {
+				$ex = db::query("select id from supplier where company_id = '$cmp' and name = '$sup_name' limit 1");
+				if ($ex && mysqli_num_rows($ex)) $sup = (int)mysqli_fetch_assoc($ex)['id'];
+				else { db::query("insert into supplier (company_id, name) values ('$cmp', '$sup_name')"); $sup = (int)mysqli_insert_id(db::$connect); }
+			}
+		} else {
+			$sup = (int)$sup;
+			if ($sup && !mysqli_num_rows(db::query("select id from supplier where id = '$sup' and company_id = '$cmp'"))) $sup = 0;
 		}
-		if (!$sup) out(false, ['msg' => t::w('Жеткізушіні жазыңыз', 'Укажите поставщика')]);
+		if (!$sup) out(false, ['msg' => t::w('Жеткізушіні таңдаңыз немесе жаңасын жазыңыз', 'Выберите или впишите поставщика')]);
 
 		$date = @$_POST['doc_date'] && strtotime($_POST['doc_date']) ? date('Y-m-d', strtotime($_POST['doc_date'])) : date('Y-m-d');
 		$doc_no = kwb::esc(mb_substr((string)@$_POST['doc_no'], 0, 64));
@@ -42,10 +48,14 @@
 			if ($price < 0) out(false, ['msg' => '«'.$name.'»: '.t::w('бағасы дұрыс емес', 'неверная цена')]);
 			$unit = kwb::unit_norm(@$r['unit']) ?: 'кг';
 			$name = mb_substr($name, 0, 255);
-			// шикізатты атауы бойынша байлау (болмаса админ қабылдағанда өзі жасалады)
-			$n = kwb::esc($name);
-			$rq = db::query("select id from product_raw where company_id = '$cmp' and (name_kz = '$n' or name_ru = '$n') limit 1");
-			$raw_id = $rq && mysqli_num_rows($rq) ? (int)mysqli_fetch_assoc($rq)['id'] : 0;
+			// шикізат: формада таңдалғаны (осы компанияныкі болса), әйтпесе атауы бойынша (болмаса админ қабылдағанда өзі жасалады)
+			$raw_id = (int)@$r['raw_id'];
+			if ($raw_id && !mysqli_num_rows(db::query("select id from product_raw where id = '$raw_id' and company_id = '$cmp'"))) $raw_id = 0;
+			if (!$raw_id) {
+				$n = kwb::esc($name);
+				$rq = db::query("select id from product_raw where company_id = '$cmp' and (name_kz = '$n' or name_ru = '$n') limit 1");
+				$raw_id = $rq && mysqli_num_rows($rq) ? (int)mysqli_fetch_assoc($rq)['id'] : 0;
+			}
 			$sum = round($qty * $price, 2);
 			$total += $sum;
 			$items[] = ['raw_id' => $raw_id, 'name' => $name, 'unit' => $unit, 'qty' => $qty, 'price' => $price, 'sum' => $sum];
@@ -82,6 +92,23 @@
 		db::query("delete from waybill_item where waybill_id = '$id'");
 		db::query("delete from waybill where id = '$id' and company_id = '$cmp' and status = 0 and user_id = '".(int)$user_id."'");
 		out(true, ['msg' => t::w('Өшірілді', 'Удалено')]);
+	}
+
+	// Жеткізуші атауы → біздің шикізат (1 шт = factor), импорт кезінде адам бекіткен сәйкестік. Админдегідей, supplier_item кестесі болса ғана.
+	if (isset($_GET['alias_save'])) {
+		if (!kwb::has_col('supplier_item', 'factor')) out(false, ['msg' => 'supplier_item кестесі әлі жоқ']);
+		$rows = json_decode((string)@$_POST['items'], true); $n = 0;
+		if (is_array($rows)) foreach (array_slice($rows, 0, 300) as $r) {
+			$name = kwb::esc(mb_substr(trim((string)@$r['name']), 0, 255));
+			$raw = (int)@$r['raw_id'];
+			$f = round(kwb::num(@$r['factor']), 4);
+			if ($name === '' || !$raw || $f <= 0) continue;
+			$ok = db::query("select id from product_raw where id = '$raw' and company_id = '$cmp'");
+			if (!$ok || !mysqli_num_rows($ok)) continue;
+			if (db::query("insert into supplier_item (company_id, name, raw_id, factor) values ('$cmp', '$name', '$raw', '$f')
+				on duplicate key update raw_id = values(raw_id), factor = values(factor), upd_dt = '$now'")) $n++;
+		}
+		out(true, ['n' => $n]);
 	}
 
 	out(false, ['msg' => 'Белгісіз сұрау']);

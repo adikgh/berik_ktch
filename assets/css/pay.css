@@ -1,0 +1,38 @@
+/* Оплата беті (pay/index.php). Өз түстерімен, басқа css-ке тәуелсіз */
+.pay_page{ --pg: #0EA768; --pb: #1f75a8; --pl: #e7e7e7; --pm: #8a8f98; max-width: 920px; margin: 0 auto; padding: 16px 0 40px; box-sizing: border-box; }
+.pay_page *{ box-sizing: border-box; }
+.pay_title{ margin: 0 0 14px; font-size: 26px; font-weight: 800; color: #222; }
+.pay_box{ background: #fff; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,.07); padding: 16px 18px; margin-bottom: 14px; }
+.pay_box_h{ display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 15px; font-weight: 800; color: #222; }
+.pay_mut{ margin: 0; color: var(--pm); font-size: 14px; line-height: 1.45; }
+.pay_badge{ display: inline-block; padding: 3px 10px; border-radius: 20px; background: #eef7f2; color: var(--pg); font-size: 12px; font-weight: 800; }
+.pay_st_warn .pay_badge{ background: #fff4d6; color: #7a5400; }
+.pay_st_grace .pay_badge, .pay_st_expired .pay_badge{ background: #fde4e4; color: #8a1f1f; }
+.pay_st_none .pay_badge{ background: #f2f2f2; color: #666; }
+.pay_kpi{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.pay_kpi div{ padding: 12px 14px; border: 1px solid var(--pl); border-radius: 12px; }
+.pay_kpi small{ display: block; color: var(--pm); font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.pay_kpi b{ font-size: 18px; color: #222; }
+.pay_grid{ display: grid; grid-template-columns: 264px 1fr; gap: 20px; align-items: start; }
+.pay_ph{ display: block; width: 264px; height: 264px; border-radius: 14px; border: 1px solid var(--pl); object-fit: contain; background: #fff; }
+.pay_ph{ display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; border-style: dashed; color: var(--pm); text-align: center; padding: 16px; font-size: 13px; font-weight: 700; }
+.pay_ph i{ font-size: 44px; }
+.pay_info p{ margin: 0 0 12px; font-size: 14px; line-height: 1.5; color: #333; }
+.pay_btn{ min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 18px; border-radius: 10px; background: var(--pb); color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; }
+.pay_btn:hover{ filter: brightness(.94); }
+.pay_off{ background: #f5f5f5; color: #222; cursor: default; }
+.pay_off:hover{ filter: none; }
+.pay_wa{ margin-top: 18px; padding: 14px; border-radius: 12px; background: #eefaf2; }
+.pay_wa_btn{ background: #25D366; }
+.pay_wa_btn i{ font-size: 18px; }
+@media (max-width: 700px){
+	.pay_title{ font-size: 22px; }
+	.pay_kpi{ grid-template-columns: 1fr; }
+	.pay_grid{ grid-template-columns: 1fr; }
+	.pay_qr img, .pay_ph{ margin: 0 auto; }
+	.pay_btn{ width: 100%; }
+}
+/* QR: таза шаршы, ақ карточкада, ~240px, пиксельдері бұлыңғыр емес */
+.pay_qr img{ display: block; width: 264px; height: 264px; padding: 12px; box-sizing: border-box; background: #fff; border: 1px solid #e7e7e7; border-radius: 14px; object-fit: contain; image-rendering: pixelated; }
+.pay_kaspi{ background: #f14635; }
+@media (max-width: 700px){ .pay_qr img{ margin: 0 auto; } }
