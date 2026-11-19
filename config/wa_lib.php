@@ -22,7 +22,7 @@ function wa_conf_default() {
 		'meta_template' => '',
 		'meta_lang' => 'ru',
 		'meta_button' => 1,
-		'login' => ['admin' => 1, 'delivery' => 0, 'dist' => 0, 'ktch' => 0],
+		'login' => ['admin' => 1, 'delivery' => 0, 'dist' => 0, 'ktch' => 0, 'my' => 0, 'qr' => 0], // my - клиент кабинеті, qr - QR меню
 		'trust_days' => 365,
 		'text' => 'BERIK POS: растау коды %s. Ешкімге айтпаңыз.',
 		'owners' => [], // баптау бетін көретін әзірлеуші(лер), user id
