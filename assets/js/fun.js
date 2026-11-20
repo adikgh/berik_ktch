@@ -79,7 +79,7 @@ function askIn(q, val, yes, o) {
 // Өздігінен іске қосылады: fetch пен $.ajax адресі AI_URL-ге сәйкес келсе. Кезекпен жүретін ЖИ (бірінен соң бірі) кезінде экран жабылмай тұрады.
 // Қолмен: aiWait.on('мәтін') / aiWait.off() / aiWait.msg('барысы'). Барысы беттегі прогресс жазуынан (AI_PROG) өзі алынады.
 ;(function () {
-   var AI_URL = /\/waybill\/ai\.php(?!\?ping)|\/(set|kind)_ai\.php|\/import\/get\.php\?(read|add|fill_one|fill_set)|\/tpl\/get\.php\?(semi_ai|dish_ai|prices|all(?!&dry))|get\.php\?(ai_suggest|semi_suggest)/
+   var AI_URL = /\/waybill\/ai\.php(?!\?ping)|\/(set|kind)_ai\.php|\/import\/get\.php\?(read|add|fill_one|fill_set)|\/tpl\/get\.php\?(semi_ai|dish_ai|prices|all|semi_all)|get\.php\?(ai_suggest|semi_suggest)/
    var AI_PROG = '.mi_stat, .gt_prog, .gt_sprog, .wbi_drop_wait b, .prp_st.load, .gt_mp, [data-ai-prog]'
    var n = 0, man = 0, box = null, t0 = 0, tick = 0, hideTm = 0, lastBtn = null, txt = ''
    function lbl(u) {
@@ -90,6 +90,7 @@ function askIn(q, val, yes, o) {
       if (/kind_ai/.test(u)) return 'ЖИ тағам түрін анықтап жатыр…'
       if (/set_ai/.test(u)) return 'ЖИ сет құрамын жазып жатыр…'
       if (/prices/.test(u)) return 'Шикізат бағасы анықталуда…'
+      if (/\?(semi_all|all)\b/.test(u)) return 'Шаблоннан толтырылуда…'
       return 'ЖИ граммовка құрастырып жатыр…'
    }
    function css() {
@@ -154,7 +155,8 @@ function askIn(q, val, yes, o) {
       var of = window.fetch
       window.fetch = function (u) {
          var s = typeof u == 'string' ? u : (u && u.url) || ''
-         if (!AI_URL.test(s)) return of.apply(this, arguments)
+         var o = arguments[1], dry = o && o.body && o.body.get && o.body.get('dry') // алдын ала тексеру (dry) — тез, экран керек емес
+         if (!AI_URL.test(s) || dry) return of.apply(this, arguments)
          start(s)
          return of.apply(this, arguments).then(function (r) { end(); return r }, function (e) { end(); throw e })
       }
