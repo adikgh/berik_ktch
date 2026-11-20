@@ -14,8 +14,7 @@
 	$sub = plan::$sub;
 	$cur_name = (string)(plan::$tariff['name'] ?? '');
 	if (plan::$trial) {
-		$tn = $sub ? mysqli_fetch_row(db::query("select name from company_tariff where id = '" . (int)$sub['tariff_id'] . "'")) : null;
-		$cur_name = pw('Free trial', 'Тегін сынақ') . ($tn ? ' · ' . $tn[0] : '');
+		$cur_name = pw('Plan free', 'Free') . ' · ' . sprintf(pw('Plan free days', '%d күн тегін'), 14);
 	}
 	$days = plan::$days;
 	$st_txt = ['active' => pw('Active', 'Белсенді'), 'warn' => pw('Ends soon', 'Жақында бітеді'), 'grace' => pw('Expired', 'Мерзімі өтті'),

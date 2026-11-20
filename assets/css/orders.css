@@ -20,7 +20,7 @@
 .hil_head{
    position: relative;
    width: 100%;
-   padding: 30px 0 15px 0;
+   padding: 32px 0 15px 0;
    background: var(--wh);
 }
 .hil_headc{
@@ -39,7 +39,7 @@
 .hil_headc2s{
    position: relative;
    width: 100%;
-   padding: 14px 18px;
+   padding: 16px 20px;
    border-radius: 10px;
    border: 1px solid var(--gr5);
 }
@@ -49,7 +49,7 @@
 }
 .hil_headc2s p{
    font-size: 18px;
-   font-weight: 700;
+   font-weight: 600;
    color: var(--cl);
    display: inline;
 }
@@ -171,12 +171,12 @@
    width: calc(100% - 64px - 15px);
 }
 .uc_uil2_date div:last-child{
-   margin-top: 7px;
+   margin-top: 8px;
 }
 
 .uc_uil2_date1{
    font-size: 16px;
-   font-weight: 700;
+   font-weight: 600;
 }
 
 
@@ -205,7 +205,7 @@
    align-items: center;
    justify-content: center;
    font-size: 20px;
-   font-weight: 700;
+   font-weight: 600;
    color: var(--wh);
 }
 .uc_uil2_raz{
@@ -223,7 +223,7 @@
    justify-content: space-between;
    align-items: center;
 
-   margin-bottom: 5px;
+   margin-bottom: 4px;
 }
 .uc_uil2_trt1, .uc_uil2_trt2, .uc_uil2_trt3{
    font-size: 12px;
@@ -259,7 +259,7 @@
 }
 .uc_uil2_trb .uc_uil2_trt1, .uc_uil2_trb .uc_uil2_trt3{
    font-size: 16px;
-   font-weight: 700;
+   font-weight: 600;
    padding-top: 10px;
 }
 .uc_uil2_trb .uc_uil2_trt2, .uc_uil2_trb .uc_uil2_trt3{
@@ -277,7 +277,7 @@
 .uc_uil2_mi2{
    display: inline;
    font-size: 16px;
-   font-weight: 700;
+   font-weight: 600;
 }
 .uc_uil2_mib{
    margin-top: 10px;

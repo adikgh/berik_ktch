@@ -37,15 +37,15 @@
 
 
 <!-- css -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&display=swap" />
 <link rel="stylesheet" href="/assets/pl/fontawesome/css/all.min.css" />
 <link rel="stylesheet" type="text/css" href="/assets/css/anim.css?v=<?=$ver?>" />
 <? if (@$site_set['swiper'] == true): ?> <link rel="stylesheet" href="/assets/pl/swiper-bundle.min.css" /> <? endif ?>
 <? if (@$site_set['plyr'] == true): ?> <link rel="stylesheet" href="/assets/pl/plyr.css" /> <? endif ?>
 
 <!-- main css -->
-<? foreach ($scss as $i): ?> <link rel="stylesheet" type="text/css" href="/assets/css/<?=$i?>.css?v=<?=$ver?>" /> <? endforeach ?>
-<? foreach ($css as $i): ?> <link rel="stylesheet" type="text/css" href="/assets/css/<?=$i?>.css?v=<?=$ver?>" /> <? endforeach ?>
+<? foreach ($scss as $i): ?> <link rel="stylesheet" type="text/css" href="/assets/css/<?=$i?>.css?v=<?=$ver?>.<?=@filemtime(__DIR__.'/../assets/css/'.$i.'.css')?>" /> <? endforeach ?>
+<? foreach ($css as $i): ?> <link rel="stylesheet" type="text/css" href="/assets/css/<?=$i?>.css?v=<?=$ver?>.<?=@filemtime(__DIR__.'/../assets/css/'.$i.'.css')?>" /> <? endforeach ?>
 <link rel="stylesheet" type="text/css" href="/assets/css/berik.css?v=<?=@filemtime(__DIR__.'/../assets/css/berik.css')?>" />
 <link rel="stylesheet" type="text/css" href="/assets/css/ktch.css?v=<?=@filemtime(__DIR__.'/../assets/css/ktch.css')?>" />
 
@@ -60,5 +60,5 @@
 <? if (@$site_set['plyr'] == true): ?> <script src="/assets/pl/plyr.polyfilled.js"></script> <? endif ?>
 <? if (@$site_set['aos'] == true): ?> <script src="/assets/pl/aos.js"></script> <? endif ?>
 <? if (@$site_set['autosize'] == true): ?> <script src="/assets/pl/autosize.min.js"></script> <? endif ?>
-<script src="/assets/js/fun.js?v=<?=$ver?>"></script>
+<script src="/assets/js/fun.js?v=<?=$ver?>.<?=@filemtime(__DIR__.'/../assets/js/fun.js')?>"></script>
 
