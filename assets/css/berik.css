@@ -669,3 +669,20 @@ body .bp_list .bp_li:not(.bp_li_act) .bp_li_ic{ color: #3f4541; }
 body .bp_list .bp_li:not(.bp_li_act):hover{ background: #e3f5ec; }
 body .bp_list .bp_li:not(.bp_li_act):hover .bp_li_t{ color: var(--bp-green-ink, #08794b); }
 body .bp_list .bp_li:not(.bp_li_act):hover .bp_li_ic{ color: var(--bp-green, #0EA768); }
+
+/* Профиль: фото мен атын өзгерту */
+.prof_ed{ position: relative; }
+.prof_av{ position: relative; flex: 0 0 auto; cursor: pointer; }
+.prof_av input{ position: absolute; width: 1px; height: 1px; opacity: 0; }
+.prof_av_b{ position: absolute; right: -2px; bottom: -2px; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--bp-green); color: #fff; font-size: 12px; border: 2px solid var(--bp-card); }
+.prof_av:focus-within .bp_prof_av{ outline: 2px solid var(--bp-green); outline-offset: 2px; }
+.prof_wait{ opacity: .5; }
+.prof_ed .bp_prof_t{ flex: 1; }
+.prof_ed_btn{ flex: none; align-self: flex-start; width: 40px; height: 40px; border: 0; border-radius: 12px; background: var(--bp-pill); color: var(--bp-muted); font-size: 15px; cursor: pointer; }
+.prof_form{ display: flex; flex-direction: column; gap: 12px; }
+.prof_form label{ display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--bp-muted); }
+body .bp_dr .prof_form input{ height: 48px; width: 100%; box-sizing: border-box; padding: 0 14px; border: 1px solid var(--bp-line); border-radius: 12px; background: var(--bp-card); font: inherit; font-size: 16px; color: #1c1f1d; }
+body .bp_dr .prof_form input:focus{ outline: 2px solid var(--bp-green); outline-offset: -1px; border-color: transparent; }
+.prof_msg{ min-height: 18px; font-size: 13px; color: #d33; }
+.prof_form button{ height: 48px; border: 0; border-radius: 12px; background: var(--bp-green); color: #fff; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; }
+.prof_form button:disabled{ opacity: .6; }
