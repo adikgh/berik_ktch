@@ -90,7 +90,7 @@
 									<? while ($p = mysqli_fetch_assoc($ps)): $pd = product::product($p['product_id']); ?>
 										<div class="kt_it">
 											<b class="kt_q"><?=(float)$p['quantity'] + 0?></b>
-											<span class="kt_n"><?=htmlspecialchars((string)@$pd['name_ru'])?></span>
+											<span class="kt_n"><?=fun::name_html(@$pd['name_ru'])?></span>
 										</div>
 									<? endwhile ?>
 								</div>

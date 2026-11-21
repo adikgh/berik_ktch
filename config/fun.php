@@ -4,6 +4,13 @@
 		
 		function __construct() {}
 
+		// тағам атауы экранға: бәрі экрандалады, тек <b class="cl_red">КОЛА</b> белгісі қызыл болып қалады
+		public static function name_html($s) {
+			$s = htmlspecialchars(trim(html_entity_decode(strip_tags((string)$s, '<b>'), ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8');
+			$s = preg_replace('~&lt;b class=&quot;cl_red&quot;&gt;(.*?)&lt;/b&gt;~u', '<b class="cl_red">$1</b>', $s);
+			return preg_replace('~&lt;/?b[^&]*&gt;~', '', $s);
+		}
+
 		// retail_order
 		public static function company($id) {
 			$sql = db::query("select * from company where id = '$id'");
