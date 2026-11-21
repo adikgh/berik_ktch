@@ -5,7 +5,7 @@
 
 	// Сайттың баптаулары
 	$menu_name = 'acc';
-	$site_set['utop_nm'] = t::w('Жеке деректер', 'Личные данные');
+	$site_set['utop_nm'] = t::w('Тағы', 'Ещё');
 	$css = ['acc'];
 	$js = ['admin'];
 	$pos_nm = [1 => t::w('Директор', 'Директор'), 2 => t::w('Директор', 'Директор'), 3 => t::w('Басқарушы', 'Управляющий'), 9 => t::w('Аспазшы', 'Повар')];
@@ -37,16 +37,13 @@
 			</div>
 
 			<div class="bp_box bp_list">
-				<a class="bp_li" href="/orders/?sort=ready">
-					<span class="bp_li_ic"><i class="far fa-check-circle"></i></span>
-					<span class="bp_li_t"><?=t::w('Бүгін дайын болғандар', 'Готовые за сегодня')?></span>
-					<i class="far fa-chevron-right bp_li_ar"></i>
-				</a>
-				<a class="bp_li" href="/pay/">
-					<span class="bp_li_ic"><i class="far fa-wallet"></i></span>
-					<span class="bp_li_t"><?=t::w('Оплата', 'Оплата')?></span>
-					<i class="far fa-chevron-right bp_li_ar"></i>
-				</a>
+				<? foreach ($pm_more ?? [] as $p): if ($p[1] == '/acc/') continue; // мәзірдегі «Тағы» бөлімдері (block/menu.php) ?>
+					<a class="bp_li" href="<?=$p[1]?>">
+						<span class="bp_li_ic"><i class="far <?=$p[2]?>"></i></span>
+						<span class="bp_li_t"><?=$p[3]?></span>
+						<i class="far fa-chevron-right bp_li_ar"></i>
+					</a>
+				<? endforeach ?>
 				<div class="bp_li pass_ubd_btn">
 					<span class="bp_li_ic"><i class="far fa-key"></i></span>
 					<span class="bp_li_t"><?=t::w('Құпиясөзді өзгерту', 'Сменить пароль')?></span>

@@ -4,6 +4,7 @@
 return [
 	'Директор' => ['Director', 'Direktor', 'Директор'],
 	'Админ' => ['Admin', 'Admin', 'Админ'],
+	'Ещё' => ['More', 'Yana', 'Дагы'],
 	'Аккаунт' => ['Account', 'Akkaunt', 'Аккаунт'],
 	'Предоплата' => ['Prepayment', 'Oldindan to‘lov', 'Алдын ала төлөм'],
 	'Отказ при получении' => ['Refused on delivery', 'Qabulda rad etildi', 'Алууда баш тартуу'],
