@@ -33,17 +33,20 @@ function pass_upgrade($uid, $input, $stored) {
 }
 
 // ---------- cookie қолтаңбасы ----------
+// Кілт базада: sys_setting.auth_key_ktc (dev ▸ Кілттер). Жоқ болса ескі config/auth_key.php, ол да жоқ болса жаңасы жасалып базаға жазылады.
 function auth_key() {
 	static $k = null;
 	if ($k !== null) return $k;
-	$f = __DIR__ . '/auth_key.php';
-	$k = is_file($f) ? (string)include $f : '';
-	if (strlen($k) < 32) {
+	require_once __DIR__ . '/sys_set.php';
+	$name = 'auth_key_ktc';
+	$v = sys_set($name);
+	if (strlen($v) < 32) { $f = __DIR__ . '/auth_key.php'; $v = is_file($f) ? (string)include $f : ''; }
+	if (strlen($v) < 32 && strlen($v = sys_set_all(true)[$name] ?? '') < 32) {
 		$new = bin2hex(random_bytes(32));
-		if (@file_put_contents($f, "<?php\nreturn '" . $new . "';\n", LOCK_EX)) $k = $new;
-		else $k = hash('sha256', 'berik_auth|' . db::$name . '|' . db::$user . '|' . db::$pass . '|' . __DIR__);
+		if (!sys_set_put($name, $new)) return hash('sha256', 'berik_auth|' . db::$name . '|' . db::$user . '|' . db::$pass . '|' . __DIR__); // база жоқ: кэштемейміз
+		$v = $new;
 	}
-	return $k;
+	return $k = $v;
 }
 function auth_sig($uid, $stored, $what = 'login') {
 	return hash_hmac('sha256', $what . '|' . (int)$uid . '|' . (string)$stored, auth_key());

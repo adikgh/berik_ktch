@@ -1,10 +1,8 @@
 <?php
 // Claude (Anthropic API) шақыру. Жобада composer жоқ, сондықтан ресми PHP SDK орнына тікелей HTTP (curl).
-// API кілті тек серверде (config/ai.php), браузерге берілмейді.
+// API кілті тек серверде, браузерге берілмейді: базада (dev ▸ Кілттер), жоқ болса өз config/ai.php-сы не көрші админнің ai.php-сы (config/sys_keys.php).
 
-// Кухня: кілт өз config/ai.php-де болмаса, көрші админ сайтының кілтін қолданады (бір сервер, бір кілт)
-if (is_file(__DIR__.'/ai.php')) require_once __DIR__.'/ai.php';
-elseif (is_file(dirname(__DIR__, 2).'/adm.berik.c/config/ai.php')) require_once dirname(__DIR__, 2).'/adm.berik.c/config/ai.php';
+require_once __DIR__.'/sys_keys.php';
 
 class claude {
 	public static $err = '';

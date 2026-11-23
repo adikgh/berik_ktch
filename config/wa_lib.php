@@ -1,6 +1,6 @@
 <?php
 // WhatsApp арқылы растау коды. Бұл файл admin, delivery, dist, ktch сайттарында бірдей (my.berik.c да осыны қолданады).
-// Баптаулар бір жерде: adm.berik.c/config/wa_conf.php (админде «WhatsApp» бетінен өзгертіледі).
+// Баптаулар бір жерде: базада sys_setting.wa_conf (dev ▸ WhatsApp), ескі запас: adm.berik.c/config/wa_conf.php (админде «WhatsApp» бетінен өзгертіледі).
 // Арналар: off - өшірулі, test - ештеңе жіберілмейді, код экранда шығады (тек локалда),
 //          green - Green-API (кәдімгі WhatsApp нөмірі), meta - Meta WhatsApp Cloud API (ресми, шаблонмен).
 
@@ -29,30 +29,33 @@ function wa_conf_default() {
 	];
 }
 
+// Баптау базада: sys_setting.wa_conf (JSON, dev ▸ WhatsApp). Базада жоқ болса ескі wa_conf.php файлы оқылады (көшіргенге дейін).
+function wa_conf_saved() {
+	require_once __DIR__ . '/sys_set.php';
+	$x = json_decode(sys_set('wa_conf'), true);
+	if (is_array($x)) return $x;
+	$f = wa_conf_path();
+	if (is_file($f)) { $x = include $f; if (is_array($x)) return $x; }
+	return null;
+}
+
 function wa_conf() {
 	static $c = null;
 	if ($c === null) {
+		$x = wa_conf_saved();
+		if ($x === null) return wa_conf_default(); // база әлі қосылмаған не баптау жоқ: кэштемейміз
 		$c = wa_conf_default();
-		$f = wa_conf_path();
-		if (is_file($f)) {
-			$x = include $f;
-			if (is_array($x)) {
-				$login = array_merge($c['login'], (array)@$x['login']);
-				$c = array_merge($c, $x);
-				$c['login'] = $login;
-			}
-		}
+		$login = array_merge($c['login'], (array)@$x['login']);
+		$c = array_merge($c, $x);
+		$c['login'] = $login;
 	}
 	return $c;
 }
 
-// Баптауды файлға жазу (тек админде)
+// Баптауды базаға жазу (sys_setting.wa_conf)
 function wa_conf_write($c) {
-	$f = __DIR__ . '/wa_conf.php';
-	$php = "<?php\n// WhatsApp растау коды. Админдегі «WhatsApp» бетінен өзгертіледі. Git-ке кірмейді (құпия).\nreturn " . var_export($c, true) . ";\n";
-	if (@file_put_contents($f, $php, LOCK_EX) === false) return false;
-	if (function_exists('opcache_invalidate')) @opcache_invalidate($f, true);
-	return true;
+	require_once __DIR__ . '/sys_set.php';
+	return sys_set_put('wa_conf', json_encode($c, JSON_UNESCAPED_UNICODE), (int)($GLOBALS['user_id'] ?? 0));
 }
 
 // Баптау бетін тек әзірлеуші көреді. Иесі әлі жазылмаса, бетті бірінші ашқан директор (1) иесі болып жазылады.
