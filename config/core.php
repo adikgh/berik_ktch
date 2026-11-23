@@ -79,7 +79,10 @@
    $css = [];
    $js = [];
    $code = rand(1000, 9999);
-   $token = (string)(@(is_file(__DIR__.'/secret.php') ? include __DIR__.'/secret.php' : [])['tg_token'] ?? ''); // config/secret.php
+   // Telegram бот токені базада (sys_setting.tg_token, dev ▸ Telegram бот); config/secret.php тек ескі запас
+   require_once __DIR__.'/sys_set.php';
+   $token = (string)sys_set('tg_token');
+   if ($token === '') $token = (string)(@(is_file(__DIR__.'/secret.php') ? include __DIR__.'/secret.php' : [])['tg_token'] ?? '');
 
 
 
